@@ -77,6 +77,8 @@ class Builder(object):  # pragma: no cover
         # Spec file used instead of python script
         if self.app_info["type"] == "spec":
             spec_file_path = self.app_info["name"]
+            temp_name = self.app_name
+            # temp_name = os.path.splitext(spec_file_path)[0]
         else:
             # Creating spec file from script
             self._make_spec(temp_name)

@@ -272,13 +272,14 @@ def make_archive(name, target, version, archive_format):
     temp_file = name + ext
     log.debug("Temp file: %s", temp_file)
     # Remove file if it exists. Found during testing...
-    if os.path.exists(temp_file):
+    if temp_file != target and os.path.exists(temp_file):
         paths.remove_any(temp_file)
 
     if os.path.isfile(target):
         shutil.copy(target, temp_file)
     else:
-        shutil.copytree(target, temp_file, symlinks=True)
+        if target != temp_file:
+            shutil.copytree(target, temp_file, symlinks=True)
         # renames the entry-point executable
         file_ext = ".exe" if system.get_system() == "win" else ""
         src_executable = temp_file + os.sep + target + file_ext
